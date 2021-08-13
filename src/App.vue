@@ -3,11 +3,29 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
+        <ul>
+    <li v-for="user in users" :key="user.id">{{ user.name }}</li>
+    </ul>
     </div>
     <router-view />
   </div>
 </template>
-
+<script>
+import axios from "axios"
+export default {
+  data(){
+    return {
+      users:[]
+    }
+  },
+  mounted(){
+    axios.get('https://jsonplaceholder.typicode.com/users')
+    .then(response => {
+      this.users = response.data;
+    })
+  }
+}
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
